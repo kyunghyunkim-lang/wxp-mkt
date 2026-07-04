@@ -1,0 +1,55 @@
+# =====================================================================
+#  wxp-mkt · 보안 .gitignore
+#  이 저장소는 PUBLIC 입니다. 아래 파일들은 실수로라도 커밋되지 않도록 차단합니다.
+#  (규칙 전문은 SECURITY.md 참고)
+# =====================================================================
+
+# --- 자격증명 / 비밀정보 (절대 커밋 금지) ---
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+*.keystore
+id_rsa*
+credentials*
+secret*
+secrets*
+*token*
+*password*
+*.credentials.json
+service-account*.json
+gha-creds-*.json
+
+# --- 실데이터 / 고객정보 (절대 커밋 금지) ---
+*.csv
+*.tsv
+*.xlsx
+*.xls
+*.sql
+*.db
+*.sqlite
+*.sqlite3
+*.dump
+*.bak
+/data/
+/dataset/
+/datasets/
+/exports/
+/dumps/
+
+# --- 로그 ---
+*.log
+/logs/
+
+# --- 로컬 환경 / 편집기 ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+venv/
