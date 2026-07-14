@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>온라인 쿠지 — 복권 뽑기</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <div class="brand">
+        <span class="brand-mark">一番</span>
+        <span class="brand-text">ONLINE KUJI</span>
+      </div>
+      <span class="header-tag">프론트엔드 데모</span>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- ========== 1. 상품 페이지 ========== -->
+    <section id="screen-product" class="screen is-active">
+      <div class="product-hero">
+        <div class="product-visual" aria-hidden="true">
+          <div class="ticket-logo big"></div>
+        </div>
+        <div class="product-info">
+          <p class="product-eyebrow">ONLINE KUJI · 100장 한정</p>
+          <h1 class="product-title">스페셜 쿠지 Vol.1</h1>
+          <p class="product-desc">
+            티켓 100장 중 단 <strong>1장</strong>을 뽑아보세요.
+            A상부터 F상까지, 어떤 등급이 당첨될까요?
+          </p>
+          <ul class="product-meta">
+            <li><span>남은 티켓</span><strong id="stock-count">100</strong></li>
+            <li><span>뽑기 횟수</span><strong>1회</strong></li>
+          </ul>
+          <button class="btn btn-primary btn-lg" id="go-select">뽑으러 가기</button>
+        </div>
+      </div>
+
+      <h2 class="section-heading">경품 라인업</h2>
+      <p class="section-sub">각 등급별 경품 이미지는 준비 중입니다. (플레이스홀더)</p>
+      <div class="prize-grid" id="prize-grid"><!-- JS로 채움 --></div>
+    </section>
+
+    <!-- ========== 2. 복권 선택 ========== -->
+    <section id="screen-select" class="screen">
+      <div class="select-topbar">
+        <h2 class="select-title">복권 선택</h2>
+        <button class="btn btn-ghost" id="back-to-product">주문 내용 확인하러 돌아오다</button>
+      </div>
+
+      <div class="select-status">
+        <span class="turn-badge">남은 <strong id="turns-left">1</strong>회</span>
+        <span class="turn-badge">남은 복권 <strong id="stock-select">100</strong>장</span>
+        <span class="select-guide">구매하실 복권을 선택해주세요.</span>
+      </div>
+
+      <ul class="notices">
+        <li>※ 복권을 탭하면 선택됩니다.</li>
+        <li>※ 선택하신 복권을 다시 탭하면 선택이 해제됩니다.</li>
+      </ul>
+
+      <div class="ticket-grid" id="ticket-grid" role="listbox" aria-label="복권 100장"><!-- JS로 채움 --></div>
+
+      <div class="draw-bar">
+        <span class="draw-hint" id="draw-hint">복권을 한 장 선택하세요.</span>
+        <button class="btn btn-primary btn-lg" id="draw-btn" disabled>뽑기</button>
+      </div>
+    </section>
+
+    <!-- ========== 3. 결과 ========== -->
+    <section id="screen-result" class="screen">
+      <div class="result-box">
+        <p class="result-eyebrow">축하합니다! 결과는…</p>
+        <div class="result-card" id="result-card">
+          <span class="result-grade" id="result-grade">A</span>
+          <span class="result-label" id="result-label">A상</span>
+        </div>
+        <p class="result-prize" id="result-prize">A상 경품 (플레이스홀더)</p>
+        <p class="result-remain">남은 복권 <strong id="stock-result">99</strong>장</p>
+        <p class="result-soldout" id="result-soldout" hidden>모든 복권이 소진되었습니다! 🎉</p>
+        <div class="result-actions">
+          <button class="btn btn-primary btn-lg" id="draw-again-btn">한 번 더 뽑기</button>
+          <button class="btn btn-light btn-lg" id="reset-btn">처음부터</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========== 뽑기 애니메이션 오버레이 ========== -->
+  <div id="draw-overlay" class="overlay" aria-hidden="true">
+    <div class="overlay-inner">
+      <p class="overlay-caption" id="overlay-caption">두구두구…</p>
+      <div class="flip-card" id="flip-card">
+        <div class="flip-face flip-front">
+          <div class="ticket-logo"></div>
+        </div>
+        <div class="flip-face flip-back" id="flip-back">
+          <span class="flip-grade" id="flip-grade">A</span>
+          <span class="flip-sub" id="flip-sub">A상</span>
+        </div>
+      </div>
+      <button class="btn btn-light" id="overlay-confirm" hidden>결과 확인</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
