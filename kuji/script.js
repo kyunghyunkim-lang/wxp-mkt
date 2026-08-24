@@ -2,7 +2,7 @@
 
 /* ===== 등급 설정 (합계 96) ===== */
 const GRADES = [
-  { key: "A", name: "A상", count: 1,  prize: "신세계 20만원 상품권",     color: "var(--g-a)", rare: true,  note: "* 제세공과금 별도" },
+  { key: "A", name: "A상", count: 1,  prize: "신세계 20만원 상품권",     color: "var(--g-a)", rare: true  },
   { key: "B", name: "B상", count: 5,  prize: "CJ 기프트 카드 3만원권",    color: "var(--g-b)", rare: true  },
   { key: "C", name: "C상", count: 10, prize: "교보문고 기프트 카드 1만원권", color: "var(--g-c)", rare: false },
   { key: "D", name: "D상", count: 30, prize: "다이소 기프트 카드 5천원권",  color: "var(--g-d)", rare: false },
@@ -76,7 +76,6 @@ function renderPrizes() {
       <div class="prize-body">
         <div class="prize-name">${g.prize}</div>
         <div class="prize-count">${g.count}명</div>
-        ${g.note ? `<div class="prize-note">${g.note}</div>` : ""}
       </div>`;
     grid.appendChild(card);
   });
