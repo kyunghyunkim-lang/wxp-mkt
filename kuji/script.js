@@ -1,18 +1,17 @@
 "use strict";
 
-/* ===== 등급 설정 (합계 100) ===== */
+/* ===== 등급 설정 (합계 96) ===== */
 const GRADES = [
-  { key: "A", name: "A상", count: 3,  color: "var(--g-a)", rare: true  },
-  { key: "B", name: "B상", count: 7,  color: "var(--g-b)", rare: true  },
-  { key: "C", name: "C상", count: 10, color: "var(--g-c)", rare: false },
-  { key: "D", name: "D상", count: 20, color: "var(--g-d)", rare: false },
-  { key: "E", name: "E상", count: 25, color: "var(--g-e)", rare: false },
-  { key: "F", name: "F상", count: 35, color: "var(--g-f)", rare: false },
+  { key: "A", name: "A상", count: 1,  prize: "신세계 20만원 상품권",     color: "var(--g-a)", rare: true  },
+  { key: "B", name: "B상", count: 5,  prize: "CJ 기프트 카드 3만원권",    color: "var(--g-b)", rare: true  },
+  { key: "C", name: "C상", count: 10, prize: "교보문고 기프트 카드 1만원권", color: "var(--g-c)", rare: false },
+  { key: "D", name: "D상", count: 30, prize: "다이소 기프트 카드 5천원권",  color: "var(--g-d)", rare: false },
+  { key: "E", name: "E상", count: 50, prize: "비타 500",               color: "var(--g-e)", rare: false },
 ];
-const TOTAL = GRADES.reduce((sum, g) => sum + g.count, 0); // 100
+const TOTAL = GRADES.reduce((sum, g) => sum + g.count, 0); // 96
 
 /* ===== 상태 ===== */
-let tickets = [];                 // [{ grade }] 길이 100
+let tickets = [];                 // [{ grade }] 길이 96
 let selectedIndex = null;         // 현재 선택한 티켓
 let drawnIndices = new Set();     // 지금까지 뽑아 소진된 티켓들 (누적)
 let lastDrawn = null;             // 방금 뽑은 티켓 (결과 표시용)
@@ -75,8 +74,8 @@ function renderPrizes() {
     card.innerHTML = `
       <div class="prize-thumb" style="background:${g.color}">${g.key}</div>
       <div class="prize-body">
-        <div class="prize-name">${g.name} 경품</div>
-        <div class="prize-count">${g.count}개</div>
+        <div class="prize-name">${g.prize}</div>
+        <div class="prize-count">${g.count}명</div>
       </div>`;
     grid.appendChild(card);
   });
@@ -173,7 +172,7 @@ function confirmResult() {
   const g = gradeOf(tickets[lastDrawn].grade);
   $("result-grade").textContent = g.key;
   $("result-label").textContent = g.name;
-  $("result-prize").textContent = `${g.name} 경품 (플레이스홀더)`;
+  $("result-prize").textContent = g.prize;
   $("result-card").style.background = g.color;
 
   // 소진 다 됐으면 "한 번 더" 대신 완료 안내
