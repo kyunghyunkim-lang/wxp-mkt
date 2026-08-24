@@ -88,6 +88,7 @@ body {
 .prize-body { padding: 12px 14px; }
 .prize-name { font-weight: 700; }
 .prize-count { font-size: 13px; color: var(--muted); }
+.prize-note { margin-top: 6px; text-align: right; font-size: 11px; color: var(--muted); }
 
 /* ===== 복권 선택 ===== */
 .select-topbar {
