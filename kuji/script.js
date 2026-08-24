@@ -6,8 +6,7 @@ const GRADES = [
   { key: "B", name: "B상", count: 7,  color: "var(--g-b)", rare: true  },
   { key: "C", name: "C상", count: 10, color: "var(--g-c)", rare: false },
   { key: "D", name: "D상", count: 20, color: "var(--g-d)", rare: false },
-  { key: "E", name: "E상", count: 25, color: "var(--g-e)", rare: false },
-  { key: "F", name: "F상", count: 35, color: "var(--g-f)", rare: false },
+  { key: "E", name: "E상", count: 60, color: "var(--g-e)", rare: false },
 ];
 const TOTAL = GRADES.reduce((sum, g) => sum + g.count, 0); // 100
 

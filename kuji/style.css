@@ -15,7 +15,6 @@
   --g-c: #3b82f6;
   --g-d: #22c55e;
   --g-e: #f97316;
-  --g-f: #94a3b8;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -67,8 +66,7 @@ body {
 .product-meta strong { font-size: 22px; }
 #go-select { background: #000000; }
 
-.section-heading { font-size: 22px; margin-bottom: 4px; }
-.section-sub { color: var(--muted); font-size: 13px; margin-bottom: 20px; }
+.section-heading { font-size: 22px; margin-bottom: 20px; }
 
 /* 경품 라인업 */
 .prize-grid {
