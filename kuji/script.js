@@ -1,17 +1,17 @@
 "use strict";
 
-/* ===== 등급 설정 (합계 96) ===== */
+/* ===== 등급 설정 (합계 100) ===== */
 const GRADES = [
   { key: "A", name: "A상", count: 1,  prize: "신세계 20만원 상품권",     color: "var(--g-a)", rare: true  },
   { key: "B", name: "B상", count: 5,  prize: "CJ 기프트 카드 3만원권",    color: "var(--g-b)", rare: true  },
   { key: "C", name: "C상", count: 10, prize: "교보문고 기프트 카드 1만원권", color: "var(--g-c)", rare: false },
   { key: "D", name: "D상", count: 30, prize: "다이소 기프트 카드 5천원권",  color: "var(--g-d)", rare: false },
-  { key: "E", name: "E상", count: 50, prize: "비타 500",               color: "var(--g-e)", rare: false },
+  { key: "E", name: "E상", count: 54, prize: "비타 500",               color: "var(--g-e)", rare: false },
 ];
-const TOTAL = GRADES.reduce((sum, g) => sum + g.count, 0); // 96
+const TOTAL = GRADES.reduce((sum, g) => sum + g.count, 0); // 100
 
 /* ===== 상태 ===== */
-let tickets = [];                 // [{ grade }] 길이 96
+let tickets = [];                 // [{ grade }] 길이 100
 let selectedIndex = null;         // 현재 선택한 티켓
 let drawnIndices = new Set();     // 지금까지 뽑아 소진된 티켓들 (누적)
 let lastDrawn = null;             // 방금 뽑은 티켓 (결과 표시용)
