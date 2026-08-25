@@ -2,11 +2,11 @@
 
 /* ===== 등급 설정 (합계 100) ===== */
 const GRADES = [
-  { key: "A", name: "A상", count: 1,  prize: "신세계 20만원 상품권",     color: "var(--g-a)", rare: true  },
-  { key: "B", name: "B상", count: 5,  prize: "CJ 기프트 카드 3만원권",    color: "var(--g-b)", rare: true  },
-  { key: "C", name: "C상", count: 10, prize: "교보문고 기프트 카드 1만원권", color: "var(--g-c)", rare: false },
-  { key: "D", name: "D상", count: 30, prize: "다이소 기프트 카드 5천원권",  color: "var(--g-d)", rare: false },
-  { key: "E", name: "E상", count: 54, prize: "비타 500",               color: "var(--g-e)", rare: false },
+  { key: "A", name: "A", count: 1,  prize: "신세계 20만원 상품권",     color: "var(--g-a)", rare: true  },
+  { key: "B", name: "B", count: 5,  prize: "CJ 기프트 카드 3만원권",    color: "var(--g-b)", rare: true  },
+  { key: "C", name: "C", count: 10, prize: "교보문고 기프트 카드 1만원권", color: "var(--g-c)", rare: false },
+  { key: "D", name: "D", count: 30, prize: "다이소 기프트 카드 5천원권",  color: "var(--g-d)", rare: false },
+  { key: "E", name: "E", count: 54, prize: "비타 500",               color: "var(--g-e)", rare: false },
 ];
 const TOTAL = GRADES.reduce((sum, g) => sum + g.count, 0); // 100
 
