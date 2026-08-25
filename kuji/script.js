@@ -142,7 +142,6 @@ function doDraw() {
 
   // 뒷면 준비
   $("flip-grade").textContent = g.key;
-  $("flip-sub").textContent = g.name;
   $("flip-back").style.background = g.color;
   $("overlay-caption").textContent = "두구두구…";
   flip.classList.remove("is-flipped", "rare");
