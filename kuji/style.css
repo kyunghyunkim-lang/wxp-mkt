@@ -110,14 +110,14 @@ body {
 }
 .ticket {
   aspect-ratio: 3/2; border: none; cursor: pointer; padding: 0;
-  border-radius: 6px; background: var(--pink);
+  border-radius: 6px; background: #000000;
   display: grid; place-items: center;
   position: relative; transition: transform .12s ease, box-shadow .12s ease, opacity .2s ease;
 }
-.ticket:hover:not(.is-drawn) { transform: translateY(-3px); box-shadow: 0 6px 14px rgba(229,115,141,.35); }
+.ticket:hover:not(.is-drawn) { transform: translateY(-3px); box-shadow: 0 6px 14px rgba(0,0,0,.35); }
 .ticket.is-selected {
   outline: 3px solid var(--pink-deep); outline-offset: 2px;
-  transform: translateY(-3px); box-shadow: 0 8px 18px rgba(229,115,141,.45);
+  transform: translateY(-3px); box-shadow: 0 8px 18px rgba(0,0,0,.45);
 }
 .ticket.is-drawn { cursor: default; background: #cfcfd6; }
 .ticket.is-drawn:hover { transform: none; box-shadow: none; }
@@ -190,7 +190,7 @@ body {
   border-radius: 16px; display: grid; place-items: center; gap: 8px;
   box-shadow: 0 14px 40px rgba(0,0,0,.4);
 }
-.flip-front { background: linear-gradient(135deg, var(--pink) 0%, var(--pink-soft) 100%); }
+.flip-front { background: #000000; }
 .flip-back {
   transform: rotateY(180deg); color: #fff; flex-direction: column;
   grid-auto-flow: row;
