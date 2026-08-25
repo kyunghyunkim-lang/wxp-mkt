@@ -140,9 +140,9 @@ function doDraw() {
   const flip = $("flip-card");
   const confirm = $("overlay-confirm");
 
-  // 뒷면 준비
-  $("flip-grade").textContent = g.key;
-  $("flip-sub").textContent = g.name;
+  // 뒷면 준비 (경품 이미지 영역 / 경품 구분 / 경품명)
+  $("flip-grade").textContent = g.name;
+  $("flip-prize").textContent = g.prize;
   $("flip-back").style.background = g.color;
   $("overlay-caption").textContent = "두구두구…";
   flip.classList.remove("is-flipped", "rare");
