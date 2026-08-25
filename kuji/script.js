@@ -170,7 +170,6 @@ function confirmResult() {
   overlay.setAttribute("aria-hidden", "true");
 
   const g = gradeOf(tickets[lastDrawn].grade);
-  $("result-grade").textContent = g.key;
   $("result-label").textContent = g.name;
   $("result-prize").textContent = g.prize;
   $("result-card").style.background = g.color;
