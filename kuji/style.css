@@ -116,7 +116,7 @@ body {
 }
 .ticket:hover:not(.is-drawn) { transform: translateY(-3px); box-shadow: 0 6px 14px rgba(0,0,0,.35); }
 .ticket.is-selected {
-  outline: 3px solid var(--pink-deep); outline-offset: 2px;
+  outline: 3px solid #000000; outline-offset: 2px;
   transform: translateY(-3px); box-shadow: 0 8px 18px rgba(0,0,0,.45);
 }
 .ticket.is-drawn { cursor: default; background: #cfcfd6; }
