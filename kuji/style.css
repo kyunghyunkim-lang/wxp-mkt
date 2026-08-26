@@ -170,7 +170,13 @@ body {
 .result-remain { font-size: 14px; color: var(--muted); margin-bottom: 26px; }
 .result-remain strong { color: var(--pink-deep); }
 .result-soldout { font-size: 15px; font-weight: 700; color: var(--pink-deep); margin-bottom: 22px; }
-.result-actions { display: flex; gap: 12px; justify-content: center; }
+.result-actions { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.reset-link {
+  background: none; border: none; padding: 4px; cursor: pointer;
+  font-family: inherit; font-size: 13px; color: var(--muted);
+  text-decoration: underline;
+}
+.reset-link:hover { color: var(--ink); }
 
 /* ===== 뽑기 오버레이 ===== */
 .overlay {
