@@ -2,11 +2,11 @@
 
 /* ===== 등급 설정 (합계 100) ===== */
 const GRADES = [
-  { key: "A", name: "A", count: 1,  prize: "신세계 20만원 상품권",     color: "var(--g-a)", rare: true  },
-  { key: "B", name: "B", count: 5,  prize: "CJ 기프트 카드 3만원권",    color: "var(--g-b)", rare: true  },
-  { key: "C", name: "C", count: 10, prize: "교보문고 기프트 카드 1만원권", color: "var(--g-c)", rare: false },
-  { key: "D", name: "D", count: 30, prize: "다이소 기프트 카드 5천원권",  color: "var(--g-d)", rare: false },
-  { key: "E", name: "E", count: 54, prize: "비타 500",               color: "var(--g-e)", rare: false },
+  { key: "A", name: "A", count: 1,  prize: "신세계 20만원 상품권",     img: "assets/prize-a.png", color: "var(--g-a)", rare: true  },
+  { key: "B", name: "B", count: 5,  prize: "CJ 기프트 카드 3만원권",    img: "assets/prize-b.png", color: "var(--g-b)", rare: true  },
+  { key: "C", name: "C", count: 10, prize: "교보문고 기프트 카드 1만원권", img: "assets/prize-c.png", color: "var(--g-c)", rare: false },
+  { key: "D", name: "D", count: 30, prize: "다이소 기프트 카드 5천원권",  img: "assets/prize-d.png", color: "var(--g-d)", rare: false },
+  { key: "E", name: "E", count: 54, prize: "비타 500",               img: "assets/prize-e.png", color: "var(--g-e)", rare: false },
 ];
 const TOTAL = GRADES.reduce((sum, g) => sum + g.count, 0); // 100
 
@@ -72,7 +72,10 @@ function renderPrizes() {
     const card = document.createElement("div");
     card.className = "prize-card";
     card.innerHTML = `
-      <div class="prize-thumb" style="background:${g.color}">${g.key}</div>
+      <div class="prize-thumb">
+        <img class="prize-img" src="${g.img}" alt="${g.prize}" loading="lazy">
+        <span class="prize-badge" style="background:${g.color}">${g.key}</span>
+      </div>
       <div class="prize-body">
         <div class="prize-name">${g.prize}</div>
         <div class="prize-count">${g.count}명</div>
@@ -169,6 +172,8 @@ function confirmResult() {
   overlay.setAttribute("aria-hidden", "true");
 
   const g = gradeOf(tickets[lastDrawn].grade);
+  $("result-img").src = g.img;
+  $("result-img").alt = g.prize;
   $("result-label").textContent = g.name;
   $("result-prize").textContent = g.prize;
   $("result-card").style.background = g.color;
