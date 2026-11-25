@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Carousel Maker</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #f6f6f4; color: #111;
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; }
+  main { max-width: 860px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1 { font-size: 22px; margin: 0 0 6px; }
+  .sub { color: #666; font-size: 14px; margin: 0 0 24px; }
+  .card { background: #fff; border: 1px solid #e3e3e0; padding: 20px; margin-bottom: 16px; }
+  .row { display: grid; grid-template-columns: 28px 1fr 200px 32px; gap: 8px; align-items: center; margin-bottom: 8px; }
+  .row b { font-size: 13px; }
+  input, select { width: 100%; padding: 9px 10px; border: 1px solid #ccc; font: inherit; font-size: 14px; background: #fff; }
+  button { font: inherit; font-size: 14px; padding: 9px 14px; border: 1px solid #111; background: #fff; cursor: pointer; }
+  button.primary { background: #111; color: #fff; }
+  .del { padding: 6px 0; border-color: #ccc; color: #888; }
+  .opts { display: grid; grid-template-columns: 1fr 120px 120px; gap: 12px; margin-top: 16px; }
+  label { font-size: 12px; color: #666; display: block; margin-bottom: 4px; }
+  textarea { width: 100%; height: 96px; font-family: Consolas, monospace; font-size: 12px; padding: 10px; border: 1px solid #ccc; resize: vertical; }
+  .actions { display: flex; gap: 8px; margin-top: 10px; }
+  .preview iframe { width: 100%; border: 0; display: block; background: #fff; }
+  .note { font-size: 13px; color: #666; line-height: 1.6; margin: 8px 0 0; }
+  @media (max-width: 600px) {
+    .row { grid-template-columns: 24px 1fr 32px; }
+    .row input.cap { grid-column: 2 / 3; }
+    .opts { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>스와이프 캐러셀 iframe 만들기</h1>
+  <p class="sub">이미지 주소와 캡션을 넣으면 블로그 HTML 블록에 붙여 넣을 iframe 코드가 나옵니다.</p>
+
+  <div class="card">
+    <div id="rows"></div>
+    <button type="button" id="add">+ 단계 추가</button>
+    <div class="opts">
+      <div><label>하단 안내문 (비우면 숨김)</label><input id="hint" value="화살표나 드래그로 단계를 확인하세요"></div>
+      <div><label>이미지 비율</label>
+        <select id="ratio"><option>3:4</option><option>4:5</option><option>1:1</option><option>2:3</option><option>16:9</option></select></div>
+      <div><label>iframe 높이(px)</label><input id="height" type="number" value="640" min="200" step="10"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <label>블로그에 붙여 넣을 코드</label>
+    <textarea id="code" readonly></textarea>
+    <div class="actions"><button type="button" class="primary" id="copy">코드 복사</button></div>
+    <p class="note">이미지는 블로그에 먼저 업로드한 뒤 이미지 주소(https://로 시작)를 복사해 넣으세요.</p>
+  </div>
+
+  <div class="card preview">
+    <label>미리보기</label>
+    <iframe id="pv" title="미리보기"></iframe>
+  </div>
+</main>
+
+<script>
+(function () {
+  var base = new URL('./', location.href).href;
+  var rows = document.getElementById('rows');
+  var init = [['', '나노골드 레디 겔'], ['', ''], ['', ''], ['', '']];
+
+  function addRow(img, cap) {
+    var r = document.createElement('div'); r.className = 'row';
+    r.innerHTML = '<b></b><input class="img" placeholder="이미지 주소 https://..."><input class="cap" placeholder="캡션"><button type="button" class="del" aria-label="삭제">✕</button>';
+    r.querySelector('.img').value = img || '';
+    r.querySelector('.cap').value = cap || '';
+    r.querySelector('.del').onclick = function () { r.remove(); render(); };
+    rows.appendChild(r);
+  }
+  function esc(s) { return s.replace(/&/g, '&amp;').replace(/"/g, '&quot;'); }
+
+  var timer;
+  function render() {
+    var list = rows.querySelectorAll('.row');
+    var p = new URLSearchParams();
+    list.forEach(function (r, i) {
+      r.querySelector('b').textContent = String(i + 1).padStart(2, '0');
+      var img = r.querySelector('.img').value.trim();
+      p.append('img', img || 'https://picsum.photos/id/' + [1027, 1011, 1005, 1062, 1043, 1050][i % 6] + '/600/800');
+      p.append('cap', r.querySelector('.cap').value.trim());
+    });
+    var hint = document.getElementById('hint').value.trim();
+    p.set('hint', hint);
+    var ratio = document.getElementById('ratio').value;
+    if (ratio !== '3:4') p.set('ratio', ratio);
+    var h = parseInt(document.getElementById('height').value, 10) || 640;
+    var url = base + '?' + p.toString();
+    document.getElementById('code').value =
+      '<iframe src="' + esc(url) + '" width="100%" height="' + h + '" style="border:0;display:block;width:100%" loading="lazy" title="스와이프 캐러셀"></iframe>';
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      var pv = document.getElementById('pv');
+      pv.style.height = h + 'px';
+      if (pv.getAttribute('src') !== url) pv.src = url;
+    }, 300);
+  }
+
+  init.forEach(function (x) { addRow(x[0], x[1]); });
+  document.getElementById('add').onclick = function () { addRow('', ''); render(); };
+  document.addEventListener('input', render);
+  document.addEventListener('change', render);
+  document.getElementById('copy').onclick = function () {
+    var t = document.getElementById('code');
+    t.select();
+    (navigator.clipboard ? navigator.clipboard.writeText(t.value) : Promise.reject())
+      .catch(function () { document.execCommand('copy'); })
+      .then(function () { var b = document.getElementById('copy'); b.textContent = '복사됨'; setTimeout(function () { b.textContent = '코드 복사'; }, 1200); });
+  };
+  render();
+})();
+</script>
+</body>
+</html>
