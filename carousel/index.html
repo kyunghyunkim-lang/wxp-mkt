@@ -9,8 +9,8 @@
   :root {
     --ink: #111;
     --muted: #777;
-    --ratio-w: 3;
-    --ratio-h: 4;
+    --ratio-w: 4;
+    --ratio-h: 5;
     --bottom: 76px;   /* 캡션 + 안내문 높이 */
     --gap: 72px;
     --pad: 64px;      /* 왼쪽 여백 */
@@ -72,7 +72,7 @@
     img   : 이미지 주소 (여러 번 반복)
     cap   : 캡션 (img 순서대로 반복)
     hint  : 하단 안내문 (빈 값이면 숨김)
-    ratio : 이미지 비율, 예) 3:4, 1:1, 4:5  (기본 3:4)
+    ratio : 이미지 비율, 예) 4:5, 3:4, 1:1  (기본 4:5)
   예) ?img=https://a.jpg&cap=첫단계&img=https://b.jpg&cap=둘째단계&hint=드래그해보세요
 */
 (function () {
@@ -84,7 +84,7 @@
             'https://picsum.photos/id/1005/600/800', 'https://picsum.photos/id/1062/600/800'];
     caps = ['1단계', '2단계', '3단계', '4단계'];
   }
-  var ratio = (p.get('ratio') || '3:4').split(':');
+  var ratio = (p.get('ratio') || '4:5').split(':');
   if (ratio.length === 2 && +ratio[0] > 0 && +ratio[1] > 0) {
     document.documentElement.style.setProperty('--ratio-w', ratio[0]);
     document.documentElement.style.setProperty('--ratio-h', ratio[1]);
