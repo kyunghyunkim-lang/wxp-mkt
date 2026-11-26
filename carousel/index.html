@@ -31,7 +31,6 @@
   .slide img { display: block; width: 100%; aspect-ratio: var(--ratio-w) / var(--ratio-h);
     object-fit: cover; background: #eee; pointer-events: none; -webkit-user-drag: none; }
   .caption { margin-top: 10px; font-size: 13px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .caption b { color: var(--ink); margin-right: 12px; font-weight: 600; }
 
   .arrow { position: absolute; top: var(--arrow-top, 50%); transform: translateY(-50%);
     width: 40px; height: 40px; padding: 0; border: 1px solid var(--ink); border-radius: 0;
@@ -95,8 +94,7 @@
     var slide = document.createElement('div'); slide.className = 'slide';
     var img = document.createElement('img'); img.src = src; img.alt = caps[i] || '';
     var cap = document.createElement('div'); cap.className = 'caption';
-    var num = document.createElement('b'); num.textContent = String(i + 1).padStart(2, '0');
-    cap.appendChild(num); cap.appendChild(document.createTextNode(caps[i] || ''));
+    cap.textContent = caps[i] || '';
     slide.appendChild(img); slide.appendChild(cap); track.appendChild(slide);
   });
 
