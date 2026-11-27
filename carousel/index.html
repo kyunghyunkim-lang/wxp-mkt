@@ -7,6 +7,7 @@
 <title>Step Carousel</title>
 <style>
   :root {
+    --bg: #fff;
     --ink: #111;
     --muted: #777;
     --ratio-w: 4;
@@ -16,7 +17,7 @@
     --pad: 64px;      /* 왼쪽 여백 */
   }
   * { box-sizing: border-box; }
-  html, body { margin: 0; height: 100%; background: #fff; color: var(--ink);
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink);
     font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; overflow: hidden; }
 
   .carousel { position: relative; height: calc(100% - 32px); padding-left: var(--pad); overflow: hidden; }
@@ -34,7 +35,7 @@
 
   .arrow { position: absolute; top: var(--arrow-top, 50%); transform: translateY(-50%);
     width: 40px; height: 40px; padding: 0; border: 1px solid var(--ink); border-radius: 0;
-    background: #fff; color: var(--ink); display: flex; align-items: center; justify-content: center;
+    background: var(--bg); color: var(--ink); display: flex; align-items: center; justify-content: center;
     cursor: pointer; z-index: 2; transition: opacity .2s; }
   .arrow svg { width: 14px; height: 14px; }
   .prev { left: 12px; }
@@ -72,6 +73,8 @@
     cap   : 캡션 (img 순서대로 반복)
     hint  : 하단 안내문 (빈 값이면 숨김)
     ratio : 이미지 비율, 예) 4:5, 3:4, 1:1  (기본 4:5)
+    bg    : 배경색 (# 없이), 예) 000000  (기본 ffffff)
+    fg    : 캡션·안내문·화살표 색 (# 없이), 예) ffffff
   예) ?img=https://a.jpg&cap=첫단계&img=https://b.jpg&cap=둘째단계&hint=드래그해보세요
 */
 (function () {
@@ -83,6 +86,12 @@
             'https://picsum.photos/id/1005/600/800', 'https://picsum.photos/id/1062/600/800'];
     caps = ['1단계', '2단계', '3단계', '4단계'];
   }
+  var hex = /^([0-9a-f]{3}|[0-9a-f]{6})$/i;
+  var root = document.documentElement.style;
+  var bg = (p.get('bg') || '').replace('#', '');
+  var fg = (p.get('fg') || '').replace('#', '');
+  if (hex.test(bg)) root.setProperty('--bg', '#' + bg);
+  if (hex.test(fg)) { root.setProperty('--ink', '#' + fg); root.setProperty('--muted', '#' + fg); }
   var ratio = (p.get('ratio') || '4:5').split(':');
   if (ratio.length === 2 && +ratio[0] > 0 && +ratio[1] > 0) {
     document.documentElement.style.setProperty('--ratio-w', ratio[0]);

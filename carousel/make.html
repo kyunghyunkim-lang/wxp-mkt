@@ -19,7 +19,7 @@
   button { font: inherit; font-size: 14px; padding: 9px 14px; border: 1px solid #111; background: #fff; cursor: pointer; }
   button.primary { background: #111; color: #fff; }
   .del { padding: 6px 0; border-color: #ccc; color: #888; }
-  .opts { display: grid; grid-template-columns: 1fr 120px 120px; gap: 12px; margin-top: 16px; }
+  .opts { display: grid; grid-template-columns: 1fr 110px 110px 110px; gap: 12px; margin-top: 16px; }
   label { font-size: 12px; color: #666; display: block; margin-bottom: 4px; }
   textarea { width: 100%; height: 96px; font-family: Consolas, monospace; font-size: 12px; padding: 10px; border: 1px solid #ccc; resize: vertical; }
   .actions { display: flex; gap: 8px; margin-top: 10px; }
@@ -44,6 +44,8 @@
       <div><label>하단 안내문 (비우면 숨김)</label><input id="hint" value="화살표나 드래그로 단계를 확인하세요"></div>
       <div><label>이미지 비율</label>
         <select id="ratio"><option>4:5</option><option>3:4</option><option>1:1</option><option>2:3</option><option>16:9</option></select></div>
+      <div><label>배경</label>
+        <select id="theme"><option value="">흰색 배경</option><option value="dark">검정 배경</option></select></div>
       <div><label>미리보기 폭</label>
         <select id="pvw"><option value="100%">PC</option><option value="360px">모바일</option></select></div>
     </div>
@@ -92,6 +94,7 @@
     p.set('hint', hint);
     var ratio = document.getElementById('ratio').value;
     if (ratio !== '4:5') p.set('ratio', ratio);
+    if (document.getElementById('theme').value === 'dark') { p.set('bg', '000000'); p.set('fg', 'ffffff'); }
     // iframe 높이를 폭에 비례시킴: 이미지가 본문 폭의 약 64%를 차지하도록 + 캡션·안내문 자리(폭의 약 10%)
     var rw = +ratio.split(':')[0], rh = +ratio.split(':')[1];
     var k = Math.round((0.64 * rh / rw + 0.1) * 1000);   // 높이/폭 × 1000
