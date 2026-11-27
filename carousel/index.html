@@ -12,16 +12,20 @@
     --muted: #777;
     --ratio-w: 4;
     --ratio-h: 5;
-    --bottom: 76px;   /* 캡션 + 안내문 높이 */
+    --vpad: 20px;     /* 위·아래 여백 (같은 값) */
+    --bottom: calc(28px + var(--vpad) * 2 + 34px);   /* 캡션 + 위아래 여백 + 안내문 */
     --gap: 72px;
     --pad: 64px;      /* 왼쪽 여백 */
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink);
     font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; overflow: hidden; }
+  body { display: flex; flex-direction: column; }
 
-  .carousel { position: relative; height: calc(100% - 32px); padding-left: var(--pad); overflow: hidden; }
-  .track { display: flex; gap: var(--gap); height: 100%;
+  /* 슬라이드(이미지+캡션)를 세로 가운데 정렬 → 위·아래 여백이 같아짐 */
+  .carousel { position: relative; flex: 1; min-height: 0; padding-left: var(--pad); overflow: hidden;
+    display: flex; align-items: center; }
+  .track { display: flex; align-items: flex-start; gap: var(--gap); width: 100%;
     transition: transform .45s cubic-bezier(.22,.61,.36,1);
     cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
   .track.dragging { transition: none; cursor: grabbing; }
@@ -42,7 +46,7 @@
   .next { right: 24px; }
   .arrow[disabled] { opacity: 0; pointer-events: none; }
 
-  .hint { position: absolute; left: 0; bottom: 6px; margin: 0; padding-left: 24px; font-size: 13px; color: var(--muted); }
+  .hint { flex: none; margin: 0 0 14px; padding-left: 24px; font-size: 13px; line-height: 20px; color: var(--muted); }
 
   @media (max-width: 600px) {
     :root { --gap: 20px; --pad: 16px; }
@@ -109,7 +113,7 @@
 
   var hintEl = document.getElementById('hint');
   var hint = p.has('hint') ? p.get('hint') : '화살표나 드래그로 ' + imgs.length + '단계를 확인하세요';
-  if (hint) hintEl.textContent = hint; else { hintEl.remove(); document.documentElement.style.setProperty('--bottom', '44px'); }
+  if (hint) hintEl.textContent = hint; else { hintEl.remove(); document.documentElement.style.setProperty('--bottom', 'calc(28px + var(--vpad) * 2)'); }
 
   var carousel = document.getElementById('carousel');
   var slides = Array.prototype.slice.call(track.children);
@@ -124,7 +128,10 @@
     prevBtn.disabled = index === 0;
     nextBtn.disabled = index === slides.length - 1;
     var img = slides[0].querySelector('img');
-    if (img.offsetHeight) carousel.style.setProperty('--arrow-top', img.offsetHeight / 2 + 'px');
+    if (img.offsetHeight) {
+      var top = img.getBoundingClientRect().top - carousel.getBoundingClientRect().top;
+      carousel.style.setProperty('--arrow-top', top + img.offsetHeight / 2 + 'px');
+    }
   }
   function go(i) { index = Math.max(0, Math.min(slides.length - 1, i)); update(); }
 
