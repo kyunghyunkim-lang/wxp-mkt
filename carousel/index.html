@@ -12,10 +12,13 @@
     --muted: #777;
     --ratio-w: 4;
     --ratio-h: 5;
-    --vpad: 20px;     /* 위·아래 여백 (같은 값) */
-    --bottom: calc(28px + var(--vpad) * 2 + 34px);   /* 캡션 + 위아래 여백 + 안내문 */
-    --gap: 72px;
-    --pad: 64px;      /* 왼쪽 여백 */
+    /* 위·아래·왼쪽 여백과 사진 사이 간격을 모두 이 값 하나로 통일 */
+    --space: clamp(16px, 4vw, 32px);
+    --vpad: var(--space);
+    --gap: var(--space);
+    --pad: var(--space);
+    --cap-h: 28px;    /* 캡션 높이 (위 간격 10 + 글자 18) */
+    --bottom: calc(var(--cap-h) + var(--vpad) * 2 + 34px);   /* 캡션 + 위아래 여백 + 안내문 */
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink);
@@ -30,30 +33,28 @@
     cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
   .track.dragging { transition: none; cursor: grabbing; }
 
-  /* 이미지 크기는 iframe 높이와 폭 중 작은 쪽에 맞춤 → 여백 없이 꽉 참 */
+  /* 이미지 크기는 iframe 높이에 맞춤 → 위·아래 여백이 정확히 --space가 됨 (다음 장이 보이도록 폭은 최대 85%) */
   .slide { flex: 0 0 auto;
-    width: min(64vw, calc((100vh - var(--bottom)) * var(--ratio-w) / var(--ratio-h))); }
+    width: min(85vw, calc((100vh - var(--bottom)) * var(--ratio-w) / var(--ratio-h))); }
   .slide img { display: block; width: 100%; aspect-ratio: var(--ratio-w) / var(--ratio-h);
     object-fit: cover; background: #eee; pointer-events: none; -webkit-user-drag: none; }
-  .caption { margin-top: 10px; font-size: 13px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .caption { margin-top: 10px; height: 18px; font-size: 13px; line-height: 18px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
   .arrow { position: absolute; top: var(--arrow-top, 50%); transform: translateY(-50%);
     width: 40px; height: 40px; padding: 0; border: 1px solid var(--ink); border-radius: 0;
     background: var(--bg); color: var(--ink); display: flex; align-items: center; justify-content: center;
     cursor: pointer; z-index: 2; transition: opacity .2s; }
   .arrow svg { width: 14px; height: 14px; }
-  .prev { left: 12px; }
-  .next { right: 24px; }
+  .prev { left: calc(var(--space) + 12px); }   /* 현재 사진 왼쪽 안쪽 */
+  .next { right: 12px; }
   .arrow[disabled] { opacity: 0; pointer-events: none; }
 
-  .hint { flex: none; margin: 0 0 14px; padding-left: 24px; font-size: 13px; line-height: 20px; color: var(--muted); }
+  .hint { flex: none; margin: 0 0 14px; padding-left: var(--space); font-size: 13px; line-height: 20px; color: var(--muted); }
 
   @media (max-width: 600px) {
-    :root { --gap: 20px; --pad: 16px; }
-    .slide { width: min(78vw, calc((100vh - var(--bottom)) * var(--ratio-w) / var(--ratio-h))); }
-    .prev { left: 6px; }
-    .next { right: 6px; }
-    .hint { padding-left: 16px; }
+    .arrow { width: 32px; height: 32px; }
+    .prev { left: calc(var(--space) + 8px); }
+    .next { right: 8px; }
   }
 </style>
 </head>
@@ -113,7 +114,7 @@
 
   var hintEl = document.getElementById('hint');
   var hint = p.has('hint') ? p.get('hint') : '화살표나 드래그로 ' + imgs.length + '단계를 확인하세요';
-  if (hint) hintEl.textContent = hint; else { hintEl.remove(); document.documentElement.style.setProperty('--bottom', 'calc(28px + var(--vpad) * 2)'); }
+  if (hint) hintEl.textContent = hint; else { hintEl.remove(); document.documentElement.style.setProperty('--bottom', 'calc(var(--cap-h) + var(--vpad) * 2)'); }
 
   var carousel = document.getElementById('carousel');
   var slides = Array.prototype.slice.call(track.children);
